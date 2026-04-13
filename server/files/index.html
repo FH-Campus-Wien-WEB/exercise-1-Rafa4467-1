@@ -1,37 +1,97 @@
-<!DOCTYPE html>
-<html lang="en">
+<script>
+    window.onload = function () {
+        const xhr = new XMLHttpRequest()
+        xhr.onload = function () {
+            const bodyElement = document.querySelector("body")
+            if (xhr.status == 200) {
+                const movies = JSON.parse(xhr.responseText)
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movies!</title>
-    <style>
-        /* Part 3: Your styling goes here */
-    </style>
-    <script>
-        function reverseString(s) {
-            return s.split("").reverse().join("");
-        }
+                movies.forEach(movie => {
+                    const article = document.createElement("article")
 
-        window.onload = function () {
-            const xhr = new XMLHttpRequest()
-            xhr.onload = function () {
-                const bodyElement = document.querySelector("body")
-                if (xhr.status == 200) {
-		            /* Part 2: Build the HTML elements here and append them to the body */ 
-                    bodyElement.append(reverseString(xhr.responseText))
-                } else {
-                    bodyElement.append("Daten konnten nicht geladen werden, Status " + xhr.status + " - " + xhr.statusText)
-                }
+                    const img = document.createElement("img")
+                    img.src = movie.Poster
+
+                    const h1 = document.createElement("h1")
+                    h1.textContent = movie.Title
+
+                    const infoParagraph = document.createElement("p")
+
+                    const runtimeSpan = document.createElement("span")
+                    const hours = Math.trunc(movie.Runtime / 60)
+                    const minutes = movie.Runtime % 60
+                    runtimeSpan.textContent = `Runtime ${hours}h ${minutes}m`
+
+                    const bulletSpan = document.createElement("span")
+                    bulletSpan.textContent = " • "
+
+                    const releasedSpan = document.createElement("span")
+                    releasedSpan.textContent = `Released on ${new Date(movie.Released).toLocaleDateString()}`
+
+                    infoParagraph.append(runtimeSpan)
+                    infoParagraph.append(bulletSpan)
+                    infoParagraph.append(releasedSpan)
+
+                    const genresParagraph = document.createElement("p")
+                    movie.Genres.forEach(genre => {
+                        const span = document.createElement("span")
+                        span.textContent = genre
+                        span.className = "genre"
+                        genresParagraph.append(span)
+                    })
+
+                    const plotParagraph = document.createElement("p")
+                    plotParagraph.textContent = movie.Plot
+
+                    const directorsHeader = document.createElement("h2")
+                    directorsHeader.textContent = "Directors"
+
+                    const directorsList = document.createElement("ul")
+                    movie.Directors.forEach(director => {
+                        const li = document.createElement("li")
+                        li.textContent = director
+                        directorsList.append(li)
+                    })
+
+                    const writersHeader = document.createElement("h2")
+                    writersHeader.textContent = "Writers"
+
+                    const writersList = document.createElement("ul")
+                    movie.Writers.forEach(writer => {
+                        const li = document.createElement("li")
+                        li.textContent = writer
+                        writersList.append(li)
+                    })
+
+                    const actorsHeader = document.createElement("h2")
+                    actorsHeader.textContent = "Actors"
+
+                    const actorsList = document.createElement("ul")
+                    movie.Actors.forEach(actor => {
+                        const li = document.createElement("li")
+                        li.textContent = actor
+                        actorsList.append(li)
+                    })
+
+                    article.append(img)
+                    article.append(h1)
+                    article.append(infoParagraph)
+                    article.append(genresParagraph)
+                    article.append(plotParagraph)
+                    article.append(directorsHeader)
+                    article.append(directorsList)
+                    article.append(writersHeader)
+                    article.append(writersList)
+                    article.append(actorsHeader)
+                    article.append(actorsList)
+
+                    bodyElement.append(article)
+                })
+            } else {
+                bodyElement.append("Daten konnten nicht geladen werden, Status " + xhr.status + " - " + xhr.statusText)
             }
-            xhr.open("GET", "/movies")
-            xhr.send()
         }
-    </script>
-
-</head>
-
-<body>
-</body>
-
-</html>
+        xhr.open("GET", "/movies")
+        xhr.send()
+    }
+</script>
