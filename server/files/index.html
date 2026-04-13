@@ -1,3 +1,66 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies!</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #1f1c2c, #928dab);
+            padding: 30px;
+            color: #fff;
+        }
+        
+        article {
+            background: #2c2c3a;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 15px;
+            max-width: 700px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        article:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+        }
+        
+        img {
+            width: 200px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+        }
+        
+        h1 {
+            margin: 10px 0;
+            color: #ffcc70;
+        }
+        
+        h2 {
+            margin-top: 15px;
+            color: #8be9fd;
+        }
+        
+        p {
+            color: #ddd;
+        }
+        
+        .genre {
+            background: #ff6b6b;
+            padding: 5px 10px;
+            margin-right: 6px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: white;
+            display: inline-block;
+        }
+        
+        span {
+            margin-right: 5px;
+        }
+        </style>
+
 <script>
     window.onload = function () {
         const xhr = new XMLHttpRequest()
